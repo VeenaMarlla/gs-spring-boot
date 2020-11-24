@@ -61,6 +61,9 @@ stages:
         effectivePomSkip: false
         sonarQubeRunAnalysis: true
         sqMavenPluginVersionChoice: 'latest'
+    - task: SonarQubePublish@4
+      inputs:
+        pollingTimeoutSec: '300'
 - stage: Deploy
   displayName: Deploy stage
   dependsOn: Build
