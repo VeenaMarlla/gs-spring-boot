@@ -48,14 +48,13 @@ stages:
     
     - task: SonarQubePrepare@4
       inputs:
-         SonarQube: 'sonar'
-         scannerMode: 'Other'
+        SonarQube: 'sonar'
+        scannerMode: 'Other'
     - task: Maven@3
       inputs:
         mavenPomFile: 'app/pom.xml'
-        goals: 'clean verify sonar:sonar'
+        goals: 'sonar:sonar'
         publishJUnitResults: false
-        codeCoverageToolOption: 'Cobertura'
         javaHomeOption: 'JDKVersion'
         mavenVersionOption: 'Default'
         mavenAuthenticateFeed: false
