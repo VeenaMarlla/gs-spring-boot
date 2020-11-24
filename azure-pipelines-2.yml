@@ -45,22 +45,23 @@ stages:
     - upload: $(Build.ArtifactStagingDirectory)
       artifact: drop
     
+    
     - task: SonarQubePrepare@4
-      displayName: 'SonarQube Env'
       inputs:
-        SonarQube: 'sonar'
-        scannerMode: 'Other'
+         SonarQube: 'sonar'
+         scannerMode: 'Other'
     - task: Maven@3
       inputs:
         mavenPomFile: 'app/pom.xml'
         goals: 'clean verify sonar:sonar'
-        publishJUnitResults: true
-        testResultsFiles: '**/surefire-reports/TEST-*.xml'
-        
+        publishJUnitResults: false
+        codeCoverageToolOption: 'Cobertura'
         javaHomeOption: 'JDKVersion'
-        jdkVersionOption: '1.11'
         mavenVersionOption: 'Default'
-
+        mavenAuthenticateFeed: false
+        effectivePomSkip: false
+        sonarQubeRunAnalysis: true
+        sqMavenPluginVersionChoice: 'latest'
 - stage: Deploy
   displayName: Deploy stage
   dependsOn: Build
